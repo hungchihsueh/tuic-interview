@@ -13,6 +13,7 @@
 		remove,
 		get,
 		onValue,
+		set,
 	} from "firebase/database";
 	const state = reactive({ todos: {} });
 	const router = useRouter();
@@ -22,21 +23,44 @@
 		if (input) {
 			const db = getDatabase();
 			const user = auth.currentUser;
-			const todoKey = push(child(ref(db), "todos")).key;
+			// Get a key for a new Post.
+			const todoKey = push(child(ref(db), `/todos/${user.uid}`)).key;
 			const todoData = {
 				todoKey,
 				userName: user.displayName,
 				created_time: new Date(),
 				todo: input,
+				isFinished: false,
 			};
-			// Get a key for a new Post.
-
 			const updates = {};
+
 			updates[`/todos/${user.uid}/${todoKey}`] = todoData;
 			update(ref(db), updates);
 			input = "";
 		}
 	};
+	const toggoleTodo = (e, todo) => {
+		console.log(todo.todoKey);
+		const db = getDatabase();
+		const user = auth.currentUser;
+		console.log(user);
+		const uid = user.uid;
+		const key = todo.todoKey;
+		const updates = {};
+		if (e.target.checked) {
+			updates[`/todos/${uid}/${key}`] = { ...todo, isFinished: true };
+			update(ref(db), updates);
+		} else {
+			updates[`/todos/${uid}/${key}`] = { ...todo, isFinished: false };
+			update(ref(db), updates);
+		}
+	};
+	const clearToDo = (todo) => {
+		console.log(todo.todoKey);
+		const db = getDatabase();
+		remove(ref(db, `todos/${auth.currentUser.uid}/${todo.todoKey}`));
+	};
+
 	const getData = async () => {
 		const auth = getAuth();
 		const user = await auth.currentUser;
@@ -55,14 +79,7 @@
 				console.error(error);
 			});
 	};
-	const clearToDo = (todo) => {
-		console.log(todo.todoKey);
-		const db = getDatabase();
-		remove(ref(db, `todos/${auth.currentUser.uid}/${todo.todoKey}`));
-	};
-	const checkUser = () => {
-		console.log(auth.currentUser);
-	};
+
 	const signOutByebye = () => {
 		signOut(auth)
 			.then(() => {
@@ -94,8 +111,6 @@
 <template>
 	<div class="container transition-all duration-150 mx-auto pt-10">
 		<button @click="signOutByebye">signout</button>
-		<button @click="checkUser">checkUser</button>
-		<button @click="getData">getData</button>
 		<div class="flex justify-center items-center gap-3 mx-auto">
 			<input
 				class="border border-black p-3 rounded-md"
@@ -112,8 +127,17 @@
 				<li
 					v-for="(todo, i) in state.todos"
 					:key="`${todo}${i}`">
-					{{ todo }}
-					<button @click="() => clearToDo(todo)">x</button>
+					<div>
+						<input
+							:checked="todo.isFinished"
+							:aria-label="todo.todo"
+							type="checkbox"
+							name=""
+							id=""
+							@change="(e) => toggoleTodo(e, todo)" />
+						{{ todo.todo }}
+						<button @click="() => clearToDo(todo)">x</button>
+					</div>
 				</li>
 			</ul>
 		</div>

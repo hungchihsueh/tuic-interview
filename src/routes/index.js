@@ -1,10 +1,10 @@
 // router
 import { createRouter, createWebHistory } from "vue-router";
-// import Login from "../views/Login.vue";
-// import Todo from "../views/Todos.vue";
+
 const routes = [
 	{ path: "/", component: () => import("../views/Login.vue") },
 	{ path: "/todo", component: import("../views/Todos.vue") },
+	{ path: "/map", component: import("../views/Map.vue") },
 ];
  const router = createRouter({
 	history: createWebHistory(),
