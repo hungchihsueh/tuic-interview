@@ -1,9 +1,3 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-import router from './routes/index'
-
-// firebase
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,10 +15,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
- initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
+//initialize firebase auth
+const firebaseAuth = getAuth(app);
 
-// pinia
-import { createPinia } from "pinia";
-const pinia = createPinia();
-
-createApp(App).use(pinia).use(router).mount('#app')
+export { app, auth };
