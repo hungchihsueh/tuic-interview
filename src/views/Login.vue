@@ -1,5 +1,11 @@
 <script setup>
 	import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+	import { useTodoStore } from "../store/store";
+	import { storeToRefs } from "pinia";
+	import { useRouter } from "vue-router";
+	const router = useRouter();
+	const todoStore = useTodoStore();
+	const { todos, user } = storeToRefs(todoStore);
 	const provider = new GoogleAuthProvider();
 	const auth = getAuth();
 	const registerWithGoogle = () => {
@@ -10,9 +16,10 @@
 				const credential = GoogleAuthProvider.credentialFromResult(result);
 				const token = credential.accessToken;
 				// The signed-in user info.
-				const user = result.user;
+				todoStore.setData(result.user);
 				// IdP data available using getAdditionalUserInfo(result)
 				// ...
+				router.push("/todo");
 			})
 			.catch((error) => {
 				console.log(error);

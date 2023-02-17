@@ -24,6 +24,6 @@ export const useTodoStore = defineStore("todo", {
 		}
 	},
 	getters: {
-		user(state){return state.user}
+		getUser(state){return state.user}
 	}
 });
