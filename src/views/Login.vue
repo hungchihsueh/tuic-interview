@@ -12,7 +12,6 @@
 				const credential = GoogleAuthProvider.credentialFromResult(result);
 				const token = credential.accessToken;
 				// The signed-in user info.
-				todoStore.setData(result.user);
 				// IdP data available using getAdditionalUserInfo(result)
 				// ...
 				router.push("/todo");
