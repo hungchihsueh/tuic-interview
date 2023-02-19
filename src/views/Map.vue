@@ -113,13 +113,15 @@
 	});
 </script>
 <template>
-	<div
-		class="h-screen w-screen"
-		id="mapContainer"
-		ref="mapContainer"></div>
-	<div
-		id="distance"
-		class="distance-container"></div>
+	<div class="w-screen h-screen overflow-hidden">
+		<div
+			class="h-screen w-screen"
+			id="mapContainer"
+			ref="mapContainer"></div>
+		<div
+			id="distance"
+			class="distance-container"></div>
+	</div>
 </template>
 <style>
 	.distance-container {
