@@ -1,7 +1,5 @@
 <script setup>
 	import { onMounted, reactive } from "vue";
-	import { useTodoStore } from "../store/store";
-	import { storeToRefs } from "pinia";
 	import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 	import { useRouter } from "vue-router";
 	import {

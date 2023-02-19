@@ -22,7 +22,7 @@
 		>{{ route.path == "/map" ? "Back" : "Map Demo" }}</router-link
 	>
 
-	<router-view></router-view>
+	<router-view />
 </template>
 
 <style scoped></style>
