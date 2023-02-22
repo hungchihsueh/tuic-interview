@@ -7,7 +7,7 @@
 	const goTodo = () => {
 		router.push("/todo");
 	};
-	console.log(route.path);
+	// console.log(route.path);
 </script>
 
 <template>

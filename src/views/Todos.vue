@@ -40,7 +40,6 @@
 	const toggoleTodo = (e, todo) => {
 		const db = getDatabase();
 		const user = auth.currentUser;
-		console.log(user);
 		const uid = user.uid;
 		const key = todo.todoKey;
 		const updates = {};
@@ -53,7 +52,7 @@
 		}
 	};
 	const clearToDo = (todo) => {
-		console.log(todo.todoKey);
+		// console.log(todo.todoKey);
 		const db = getDatabase();
 		remove(ref(db, `todos/${auth.currentUser.uid}/${todo.todoKey}`));
 	};
@@ -61,12 +60,12 @@
 	const getData = async () => {
 		const auth = getAuth();
 		const user = await auth.currentUser;
-		console.log(user);
+		// console.log(user);
 		const dbRef = ref(getDatabase());
 		get(child(dbRef, `todos/${user.uid}`))
 			.then((snapshot) => {
 				if (snapshot.exists()) {
-					console.log(snapshot.val());
+					// console.log(snapshot.val());
 					state.todos = snapshot.val();
 				} else {
 					console.log("No data available");
@@ -80,7 +79,7 @@
 	const signOutByebye = () => {
 		signOut(auth)
 			.then(() => {
-				console.log(auth.currentUser);
+				// console.log(auth.currentUser);
 				router.push("/");
 			})
 			.catch((error) => {
@@ -104,9 +103,6 @@
 			);
 		});
 	});
-	const checki = (i) => {
-		console.log(i);
-	};
 </script>
 <template>
 	<div class="container transition-all duration-150 mx-auto pt-10">
