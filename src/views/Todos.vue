@@ -117,7 +117,12 @@
 		</button>
 		<div
 			class="mx-auto text-center my-10 font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-br from-green-400 to-blue-600">
-			Hello! {{ auth.currentUser.displayName }}
+			Hello!
+			{{
+				auth.currentUser &&
+				auth.currentUser.displayName &&
+				auth.currentUser.displayName
+			}}
 		</div>
 		<div
 			class="mb-10 w-1/2 flex justify-center items-center gap-3 mx-auto border shadow-md p-3 rounded-full bg-gray-100">
