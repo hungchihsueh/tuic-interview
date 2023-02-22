@@ -3,8 +3,7 @@
 	import mapboxgl from "mapbox-gl";
 	const distanceContainer = document.getElementById("distance");
 	onMounted(() => {
-		mapboxgl.accessToken =
-			"pk.eyJ1IjoiY2hyaXMxOTk4IiwiYSI6ImNsZThubnM3dTAwbHUzeG82ZWNsMjBlNG8ifQ.H69DRrkZ-iYfXMAjuih4AA";
+		mapboxgl.accessToken = import.meta.env.VITE_MAPGL_TOKEN;
 		const map = new mapboxgl.Map({
 			container: "mapContainer", // container ID
 			style: "mapbox://styles/mapbox/streets-v12", // style URL
